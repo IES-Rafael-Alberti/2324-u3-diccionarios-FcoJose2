@@ -14,7 +14,7 @@ def gestionFacturas(modo):
             if costo_factura >= 0:
                 facturas[numero_factura] = costo_factura
                 pendiente += costo_factura
-                print("Estado actual: Cobrado :" + str(cobro) + ", Pendiente: " + str(pendiente))
+                print("Estado actual: Cobrado: " + str(cobro) + ", Pendiente: " + str(pendiente))
             
             else:
                 while costo_factura <= 0:
