@@ -1,0 +1,51 @@
+'''
+Escribir un programa que gestione las facturas pendientes de cobro de una empresa. Las facturas se almacenarán en un diccionario donde la clave de cada factura será el número de factura y el valor el coste de la factura. El programa debe preguntar al usuario si quiere añadir una nueva factura, pagar una existente o terminar. Si desea añadir una nueva factura se preguntará por el número de factura y su coste y se añadirá al diccionario. Si se desea pagar una factura se preguntará por el número de factura y se eliminará del diccionario. Después de cada operación el programa debe mostrar por pantalla la cantidad cobrada hasta el momento y la cantidad pendiente de cobro.
+'''
+def gestionFacturas(modo):
+    facturas = {}
+    cobro = 0
+    pendiente = 0
+
+    while modo != "T":
+        if modo == "A":
+            numero_factura = input("Introduce el número de factura: ")
+            costo_factura = float(input("Introduce el coste de la factura: "))
+
+            if costo_factura >= 0:
+                facturas[numero_factura] = costo_factura
+                pendiente += costo_factura
+                print("Estado actual: Cobrado: " + str(cobro) + ", Pendiente: " + str(pendiente))
+            
+            else:
+                while costo_factura <= 0:
+                    costo_factura = float(input("Introduce el coste de la factura: "))
+
+        if modo == "P":
+            numero_factura = input("Introduce el numero de la factura que desea pagar: ")
+
+            if numero_factura in facturas:
+                costo_factura = facturas.pop(numero_factura,0)
+                cobro += costo_factura
+                pendiente -= costo_factura
+                print("Estado actual: Cobrado :" + str(cobro) + ", Pendiente: " + str(pendiente))
+            else:
+                print("Esa factura no existe")
+
+        modo = input("Indique un modo: (A)ñadir, (P)agar o (T)erminar: ").upper()
+    return cobro,pendiente
+
+def mensajeSalida(cobro, pendiente):
+    return "Cantidad pagada: " + str(cobro) + "\nPendiente de pagar: " + str(pendiente)
+
+if __name__ == "__main__":
+    
+
+    #Entrada
+    modo = input("Desea (A)ñadir una factura o (T)erminar: ")
+
+
+    #Proceso
+    cobro,pendiente = gestionFacturas(modo)
+    mensaje = mensajeSalida(cobro,pendiente)
+    #Salida
+    print(mensaje)
